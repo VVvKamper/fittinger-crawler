@@ -23,9 +23,9 @@ class NetaporterSpider(scrapy.Spider):
     def parse_dir_contents(self, response):
         item = FittingerItem()
         product_details = response.css("div#product-details")
-        item['name'] = product_details.css("h1::text").extract()
-        item['brand'] = product_details.css("h2 > a::text").extract()
-        item['price'] = product_details.css("div.price > span::text").extract()
+        item['name'] = product_details.css("h1::text").extract()[0]
+        item['brand'] = product_details.css("h2 > a::text").extract()[0]
+        item['price'] = product_details.css("div.price > span::text").extract()[0]
         item['images'] = response.css("div#large-image img::attr('src')").extract()
         item['note'] = response.css("ul#editors-notes-content > li > div").extract()[0]
         item['link'] = response.request.url
